@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>{{article.titre}}</h1>  <h3>de {{article.auteur}}</h3>
+{% autoescape on %}
+{{ article.contenu|safe|linebreaksbr  }}
+{% endautoescape %}
+
+<ul>
+ {% if article.image %}
+
+    <img src="{{MEDIA_URL}}{{article.image.url}}" alt="{{article.titre}}" style="width: 200px; height: 200px;">
+
+ {% endif %}
+
+</ul>
+
+{% endblock %}
+

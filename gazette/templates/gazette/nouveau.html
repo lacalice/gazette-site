@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h2>Nouvel article</h2>
+Bienvenue ! Ici tu peux sousmettre tes créations au journal, que ce soit des articles, dessins etc.
+Attention, voici quelques règles et informations :
+<li> Tu peux rédiger ton article dans "contenu" ou le sousmettre par PDF</li>
+<li>"Auteur" correspond au nom de signature de ton article, tu n'es pas obligé ne mettre ton vrai nom, si tu ne mets rien tu seras publié sous le nom de "Anonyme"</li>
+<li>Si tu as des remarques particulières pour ta création, fais-le nous savoir dans "Remarques"</li>
+<li>Nous comptons sur toi pour ne rien mettre d'injurieux dans ton article, nous nous réservons le droit de ne pas publier si nous trouvons le contenu offensant.</li>
+
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Envoyer</button>
+    </form>
+
+{% endblock %}

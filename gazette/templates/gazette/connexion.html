@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1> trop bien tu es connecté !</h1>
+<a class="nav-link" href="http://127.0.0.1:8000/admin/">Cliquez ici pour gérer les articles</a>
+<form action="{% url 'logout' %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Déconnexion</button>
+</form>
+{% else %}
+    <div class="container">
+        <form method="POST">
+             {% csrf_token %}
+            {{form.as_p}}
+            <button style="background-color:white; color:blue" class="btn btn-outline-info" type="submit">Connexion</button>
+        </form>
+        
+    </div>
+ {% endif %}
+
+ {% endblock %}

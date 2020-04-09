@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+        
+{% for n in le_numero %}
+    <li>{{n.titre}}, <a href="{{n.num.url}}" download>télécharge moi</a>, <img src="{{n.illustration.url}}"  > </li>
+
+{% endfor %}
+
+{% endblock %}

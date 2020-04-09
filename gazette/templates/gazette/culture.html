@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for article in article_culture %}
+<li>{{article.titre}} de {{article.auteur}}, {{article.numero}}
+    <a href="{% url 'detail' article.id %}">en savoir plus</a></li>
+{% endfor %}
+{% endblock %}
