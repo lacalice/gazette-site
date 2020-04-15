@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1 style="text-align: center">Illustrations</h1>
+
+{% for article in illu %}
+<li>{{article.titre}} de {{article.auteur}}, {{article.numero}}
+    <a href="{% url 'detail' article.id %}">en savoir plus</a></li>
+{% endfor %}
+
+{% endblock %}

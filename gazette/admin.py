@@ -15,7 +15,7 @@ class AdminNum(admin.ModelAdmin):
     #recherche par titre
     search_fields = ('titre',)
 
-
-# Register your models here.
 admin.site.register(Article, ProjectAdmin)
-admin.site.register(Numero,AdminNum)
+admin.site.register(Numero, AdminNum)
+admin.site.register(Commentaire)
+

@@ -3,27 +3,30 @@
 
 {% block content %}
 
+<div style="text-align: center">
 
-<div class="card border-dark mb-3" style="max-width: 18rem;">
-    <div class="card-body text-dark">
-        <h3> Bienvenue sur le site de la Gazette du Cogniticien</h3>
-      <p class="card-text">Vous pouvez retrouver ici tous les articles publiés dans les versions papiers</p>
-    </div>
+
+        <h3> Bienvenue sur le site de la Gazette du Cogniticien  </h3><br>
+<h5>Vous pouvez retrouver ici tous les articles publiés dans les versions papiers</h5>
+
   </div>
-
+<br>
 {% if dernier_article %}
+<h4> Les articles les plus récents</h4>
     <ul>
         
     {% for article in dernier_article %}
-    <li>{{article.titre}} de {{article.auteur}}, {{article.numero}}
+    <li>{{article.titre}} de <b>{{article.auteur}}</b>, {{article.numero}}
+        <br> <i>{{article.contenu|truncatechars:100}}</i>
         <a href="{% url 'detail' article.id %}">en savoir plus</a></li>
+        <br>
+        <br>
     {% endfor %}
     
     </ul>
 {% else %}
     <p>Pas d'articles nouveaux.</p>
 {% endif %}
-
 
 
 {% endblock %}

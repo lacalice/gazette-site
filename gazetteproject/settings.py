@@ -84,7 +84,10 @@ DATABASES = {
         'PASSWORD':'secret',
         'HOST':'127.0.0.1',
         'PORT':'3306'
-    }
+    },
+    'OPTIONS': {
+     "init_command": "SET foreign_key_checks = 0;",
+     }
 }
 
 
@@ -126,8 +129,9 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "fichier")
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os_path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os_path.join(BASE_DIR, 'images&fichiers')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]

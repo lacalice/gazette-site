@@ -2,22 +2,40 @@
 {% load static %}
 
 {% block content %}
+
 {% if user.is_authenticated %}
-<h1> trop bien tu es connecté !</h1>
-<a class="nav-link" href="http://127.0.0.1:8000/admin/">Cliquez ici pour gérer les articles</a>
+<h1> Compte administrateur de {{user}}</h1>
+
+Voici la liste des articles envoyés par des contributeurs et non publiés<br>
+
+        
+    {% for article in non_publie %}
+    <li>{{article.titre}} de {{article.auteur}} ; remarques de l'auteur : {{article.remarques}}</li>    
+    {% endfor %}
+<br><br> Pour consulter l'article il faut se rendre sur la page admin (le lien est en-dessous)
+<br> Pour publier l'article il suffit de changer l'état en "publié" à la place de "non-publié
+<br><br>
+
+Voici la liste des commentaires non publiés <br>
+{% for c in non_com%}
+<li>"{{c.com}}" de {{c.auteur}} le {{c.pub_date}} dans {{c.article}}</li>
+{% endfor %}
+
+<a class="nav-link" href="http://127.0.0.1:8000/admin/" target="_blank">Cliquez ici pour gérer les articles</a>
 <form action="{% url 'logout' %}" method="POST">
     {% csrf_token %}
     <button type="submit">Déconnexion</button>
 </form>
-{% else %}
-    <div class="container">
-        <form method="POST">
-             {% csrf_token %}
-            {{form.as_p}}
-            <button style="background-color:white; color:blue" class="btn btn-outline-info" type="submit">Connexion</button>
-        </form>
-        
-    </div>
- {% endif %}
 
- {% endblock %}
+{% else %}
+<h1 style="text-align: center"> Connexion Administrateur</h1>
+<div class="container">
+    <form method="POST">
+         {% csrf_token %}
+         {{form.as_p}}
+        <button style="background-color:white; color:blue" class="btn btn-outline-info" type="submit">Connexion</button>
+    </form>
+    
+</div>
+{% endif %}
+{% endblock %}

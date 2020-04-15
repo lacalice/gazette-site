@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1 style="text-align: center">Les jeux</h1>
+<h4 style="text-align: center">Retrouvez ici les jeux inventés par la rédaction, les élèves et même quelques professeurs !</h4>
+<br>
+{% for article in article_jeux %}
+
+<li>{{article.titre}} de <b>{{article.auteur}}</b>, {{article.numero}}
+
+    <a href="{% url 'detail' article.id %}">en savoir plus</a></li>
+
+{% endfor %}
+
+{% endblock %}

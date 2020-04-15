@@ -4,17 +4,45 @@
 {% block content %}
 <h1>{{article.titre}}</h1>  <h3>de {{article.auteur}}</h3>
 {% autoescape on %}
-{{ article.contenu|safe|linebreaksbr  }}
+<p style="text-align: justify">{{ article.contenu|safe|linebreaksbr}} </p>
 {% endautoescape %}
 
 <ul>
  {% if article.image %}
 
-    <img src="{{MEDIA_URL}}{{article.image.url}}" alt="{{article.titre}}" style="width: 200px; height: 200px;">
+    <img src="{{article.image.url}}" alt="{{article.titre}}" width= 500px; height= 500px;>
+
+ {% endif %}
+
+ {% if article.formatPDF %}
+
+Vous pouvez aussi télécharger l'article
+ <a href="{{article.formatPDF.url}}" download>ici</a> ou le consulter <a href="{{article.formatPDF.url}}" target="_blank">là</a>
 
  {% endif %}
 
 </ul>
-
+{% if com_publiable %}
+<h5>Commentaires</h5>
+{% for c in com_publiable %}
+Commentaire du <i>{{c.pub_date}} </i><br>
+{{c.com}} 
+<br> de <b>{{c.auteur}} </b>
+<br>
+{% endfor %}
+<br>
+{% endif %}
+<br>
+Si vous souhaitez publier un commentaire il y a plusieurs informations à prendre en compte :
+<li>Pas de propos injurieux envers qui que ce soit</li>
+<li>Si le commentaire doit avoir un rapport avec l'article ou le journal</li>
+<li>Si vous ne mettez pas de nom d'auteur celui d'"Anonyme" vous sera attribué</li>
+L'administrateur décidra si le commentaire peut être publié
+<br><br>
+<form method="POST" class="post-form">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <button type="submit" class="save btn btn-default">Envoyer</button>
+</form>
 {% endblock %}
 

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1 style="text-align: center">Articles de la vie dans l'école</h1>
+<h4 style="text-align: center">Retrouvez ici les articles sur les clubs, la vie associatives et tout ce qui touche à l'ENSC !</h4>
+<br>
+{% for article in article_vie %}
+
+<li>{{article.titre}} de <b>{{article.auteur}}</b>, {{article.numero}}
+    <br> <i>{{article.contenu|truncatechars:100}}</i>
+    <a href="{% url 'detail' article.id %}">en savoir plus</a></li>
+
+{% endfor %}
+
+{% endblock %}

@@ -2,11 +2,42 @@
 {% load static %}
 
 {% block content %}
+<h1 style="text-align: center">Les numéros</h1>
+<h4 style="text-align: center">Vous pouvez ici télécharger ou consulter tous les numéros publéis jusqu'à maintenant</h4>
 
-        
+
 {% for n in le_numero %}
-    <li>{{n.titre}}, <a href="{{n.num.url}}" download>télécharge moi</a>, <img src="{{n.illustration.url}}"  > </li>
+<div class="card" style="width:30%; margin-left: auto; margin-right: auto;">
+    <br> <img src="{{n.illustration.url}}" style="width: 320px; height: 300px;margin-left: auto; margin-right: auto;">
 
+    <div class="container" style="margin-left: auto; margin-right: auto;">
+        <br>
+        {{n.titre}} <a href="{{n.num.url}}" download>télécharger</a> ou <a href="{{n.num.url}}" target="_blank">consulter</a>
+
+    </div>
+</div>
+
+<br>
+<br>
 {% endfor %}
+<style>
+    .card {
+        /* Add shadows to create the "card" effect */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+    }
 
+    /* On mouse-over, add a deeper shadow */
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    /* Add some padding inside the card container */
+    .container {
+        padding: 2px 16px;
+    }
+    img {
+  border-radius: 5px 5px 0 0;
+}
+</style>
 {% endblock %}
