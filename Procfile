@@ -1,0 +1,1 @@
+web: gunicorn gazette-du-cogniticien_project.wsgi

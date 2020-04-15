@@ -13,6 +13,14 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from os import path as os_path
 
+import dj_database_url
+
+# ...
+if os.environ.get('ENV') == 'PRODUCTION':
+    # ...
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_PATH = os_path.abspath(os_path.split(__file__)[0])
@@ -25,9 +33,12 @@ PROJECT_PATH = os_path.abspath(os_path.split(__file__)[0])
 SECRET_KEY = '3tyae!e)a^$5j7v^ou97+(06cz^-!%4x13ot_n&zwoejzxsclt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.environ.get('ENV') == 'PRODUCTION':
+    DEBUG = False
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [gazette-du-cogniticien.herokuapp.com]
 
 
 # Application definition
@@ -50,7 +61,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+if os.environ.get('ENV') == 'PRODUCTION':
+        # ...
+        # Simplified static file serving.
+        # https://warehouse.python.org/project/whitenoise/
+        STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'gazetteproject.urls'
 
