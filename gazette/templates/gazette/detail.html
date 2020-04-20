@@ -2,36 +2,44 @@
 {% load static %}
 
 {% block content %}
-<h1>{{article.titre}}</h1>  <h3>de {{article.auteur}}</h3>
+<h1>{{article.titre}}</h1>
+<h3>de {{article.auteur}}</h3>
 {% autoescape on %}
 <p style="text-align: justify">{{ article.contenu|safe|linebreaksbr}} </p>
 {% endautoescape %}
 
 <ul>
- {% if article.image %}
+   {% if article.image %}
+   <!--Affiche l'image si l'article en possède une-->
 
-    <img src="{{article.image.url}}" alt="{{article.titre}}" width= 500px; height= 500px;>
+   <img src="{{article.image.url}}" alt="{{article.titre}}" width=500px; height=500px;>
 
- {% endif %}
+   {% endif %}
 
- {% if article.formatPDF %}
+   {% if article.formatPDF %}
+   <!--Affiche le PDF si l'article en possède un-->
 
-Vous pouvez aussi télécharger l'article
- <a href="{{article.formatPDF.url}}" download>ici</a> ou le consulter <a href="{{article.formatPDF.url}}" target="_blank">là</a>
+   Vous pouvez aussi télécharger l'article
+   <a href="{{article.formatPDF.url}}" download>ici</a> ou le consulter <a href="{{article.formatPDF.url}}"
+      target="_blank">là</a>
 
- {% endif %}
+   {% endif %}
 
 </ul>
 {% if com_publiable %}
+<!--Affiche les commentaires validés par l'admin-->
+
 <h5>Commentaires</h5>
 {% for c in com_publiable %}
 Commentaire du <i>{{c.pub_date}} </i><br>
-{{c.com}} 
+{{c.com}}
 <br> de <b>{{c.auteur}} </b>
 <br>
 {% endfor %}
+
 <br>
 {% endif %}
+<!--Règles pour publier des commentaires-->
 <br>
 Si vous souhaitez publier un commentaire il y a plusieurs informations à prendre en compte :
 <li>Pas de propos injurieux envers qui que ce soit</li>
@@ -39,10 +47,11 @@ Si vous souhaitez publier un commentaire il y a plusieurs informations à prendr
 <li>Si vous ne mettez pas de nom d'auteur celui d'"Anonyme" vous sera attribué</li>
 L'administrateur décidra si le commentaire peut être publié
 <br><br>
+<!--form pour envoyer un commentaire-->
+
 <form method="POST" class="post-form">
    {% csrf_token %}
    {{ form.as_p }}
    <button type="submit" class="save btn btn-default">Envoyer</button>
 </form>
 {% endblock %}
-

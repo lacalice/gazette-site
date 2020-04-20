@@ -6,10 +6,15 @@
 <h1 style="text-align: center">Articles culturels</h1>
 {% for article in article_culture %}
 <li>{{article.titre}} de <b>{{article.auteur}}</b>, {{article.numero}}
-    <br> <i>{{article.contenu|truncatechars:100}}</i>
+    <br>
+    <i>{{article.contenu|truncatechars:100}}</i>
+
     <a href="{% url 'detail' article.id %}">en savoir plus</a></li>
 <br>
 <br>
+
 {% endfor %}
+
 <br>
+
 <br>{% endblock %}

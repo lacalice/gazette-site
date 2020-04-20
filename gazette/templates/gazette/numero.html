@@ -7,12 +7,14 @@
 
 
 {% for n in le_numero %}
+<!--Affiche les numéros-->
 <div class="card" style="width:30%; margin-left: auto; margin-right: auto;">
     <br> <img src="{{n.illustration.url}}" style="width: 320px; height: 300px;margin-left: auto; margin-right: auto;">
 
     <div class="container" style="margin-left: auto; margin-right: auto;">
         <br>
-        {{n.titre}} <a href="{{n.num.url}}" download>télécharger</a> ou <a href="{{n.num.url}}" target="_blank">consulter</a>
+        {{n.titre}} <a href="{{n.num.url}}" download>télécharger</a> ou <a href="{{n.num.url}}"
+            target="_blank">consulter</a>
 
     </div>
 </div>
@@ -36,8 +38,9 @@
     .container {
         padding: 2px 16px;
     }
+
     img {
-  border-radius: 5px 5px 0 0;
-}
+        border-radius: 5px 5px 0 0;
+    }
 </style>
 {% endblock %}

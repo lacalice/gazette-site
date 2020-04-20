@@ -6,26 +6,27 @@
 <div style="text-align: center">
 
 
-        <h3> Bienvenue sur le site de la Gazette du Cogniticien  </h3><br>
-<h5>Vous pouvez retrouver ici tous les articles publiés dans les versions papiers</h5>
+    <h3> Bienvenue sur le site de la Gazette du Cogniticien </h3><br>
+    <h5>Vous pouvez retrouver ici tous les articles publiés dans les versions papiers</h5>
 
-  </div>
+</div>
 <br>
 {% if dernier_article %}
+<!--Affiche les articles les plus récents-->
 <h4> Les articles les plus récents</h4>
-    <ul>
-        
+<ul>
+
     {% for article in dernier_article %}
     <li>{{article.titre}} de <b>{{article.auteur}}</b>, {{article.numero}}
         <br> <i>{{article.contenu|truncatechars:100}}</i>
         <a href="{% url 'detail' article.id %}">en savoir plus</a></li>
-        <br>
-        <br>
+    <br>
+    <br>
     {% endfor %}
-    
-    </ul>
+
+</ul>
 {% else %}
-    <p>Pas d'articles nouveaux.</p>
+<p>Pas d'articles nouveaux.</p>
 {% endif %}
 
 

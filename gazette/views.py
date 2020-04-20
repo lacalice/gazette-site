@@ -12,6 +12,7 @@ from django.utils import timezone
 
 
 def index(request):
+    #permet d'afficher les 100 articles les plus récents et publiables (validé par un admin)
     dernier_article = Article.objects.filter(etat="publié").order_by('-pub_date')[:100]
     context = {
         'dernier_article':dernier_article,
@@ -19,6 +20,7 @@ def index(request):
     return render(request, 'gazette/index.html', context)
 
 def numero(request):
+    #permet d'afficher toutes les numéros
     le_numero = Numero.objects.all()
     context= {
         'le_numero':le_numero,
@@ -26,9 +28,11 @@ def numero(request):
     return render(request,'gazette/numero.html',context)
 
 def apropos(request):
+    #permet de naviguer vers la page apropos
     return render(request, 'gazette/apropos.html')
 
 def culture_view(request):
+    #permet d'afficher les articles dans la catégorie culture et publiable
     article_culture = Article.objects.filter(categorie="culture", etat="publié")
     context = {
         'article_culture':article_culture,
@@ -36,30 +40,37 @@ def culture_view(request):
     return render(request, 'gazette/culture.html', context)
 
 def autres_view(request):
-    article_autre = Article.objects.filter(categorie="autre")
+    #permet d'afficher les articles dans la autre culture et publiable
+    article_autre = Article.objects.filter(categorie="autre", etat="publié")
     context={
         'article_autre':article_autre,
     }
     return render(request,'gazette/autres.html', context)
 
 def jeux_view(request):
-    article_jeux = Article.objects.filter(categorie="Jeux")
+    #permet d'afficher les articles dans la catégorie jeux et publiables
+    article_jeux = Article.objects.filter(categorie="Jeux", etat="publié")
     context={
         'article_jeux':article_jeux,
     }
     return render(request,'gazette/jeux.html', context)
 
 def vie_view(request):
-    article_vie = Article.objects.filter(categorie="vie dans l'école")
+    #permet d'afficher les articles dans la catégorie vie de l'école et publiables
+    article_vie = Article.objects.filter(categorie="vie dans l'école", etat="publié")
     context={
         'article_vie':article_vie,
     }
     return render(request,'gazette/vie_dans_lecole.html', context)
 
 def detail(request, article_id):
+    #permet d'afficher un article en fonction de son id
     article = get_object_or_404(Article, pk=article_id)
+
+    #permet d'afficher un commentaire qui possède la même clé étrangère qu'un article et publiable
     com_publiable= Commentaire.objects.filter(etat="publié", article=article_id)
 
+    #form pour envoyer un commentaire en fonction de l'article
     if request.method == "POST":
         form = CommentaireForm(request.POST)
         if form.is_valid():
@@ -74,7 +85,8 @@ def detail(request, article_id):
     return render(request, 'gazette/detail.html', {'article':article, 'form':form,'com_publiable':com_publiable})
 
 def illustration_view(request):
-    illu = Article.objects.filter(categorie="illustration")
+    #permet d'afficher les articles dans la catégorie illustration et publiables
+    illu = Article.objects.filter(categorie="illustration", etat="publié")
     context={
         'illu':illu,
     }
@@ -82,6 +94,7 @@ def illustration_view(request):
 
 
 def login_request(request):
+    #permet de se connecter
     if request.method == 'POST':
         form = AuthenticationForm(request= request, data= request.POST)
         if form.is_valid():
@@ -97,6 +110,7 @@ def login_request(request):
         else:
             messages.error(request, f"problemes lors de la connexion")
     form = AuthenticationForm()
+
     #permet d'afficher les articles non publiés lorsque l'admin est connecté
     non_publie = Article.objects.filter(etat="non-publié")
     non_com = Commentaire.objects.filter(etat="non-publié")
@@ -104,11 +118,13 @@ def login_request(request):
     return render(request=request, template_name='gazette/connexion.html', context={"form":form, 'non_publie':non_publie, 'non_com':non_com})
 
 def logout_request(request):
+    #permet de se déconnecter
     logout(request)
     messages.info(request, "Logged out successfully!")
     return redirect("index")
 
 def article_nouveau(request):
+    #form pour envoyer un nouvel article, redirige vers page accueil
     if request.method == "POST":
         form = ArticleForm(request.POST)
         if form.is_valid():

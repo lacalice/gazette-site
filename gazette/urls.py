@@ -19,6 +19,7 @@ urlpatterns = [
     path('nouveau.html', views.article_nouveau, name='article_nouveau'),
 ]
 
+#nécessaire pour les fichiers statiques et dynamiques
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

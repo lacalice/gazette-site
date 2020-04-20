@@ -4,14 +4,15 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+<!--Ce qui s'affiche si admin déjà connecté-->
 <h1> Compte administrateur de {{user}}</h1>
 
 Voici la liste des articles envoyés par des contributeurs et non publiés<br>
 
-        
-    {% for article in non_publie %}
-    <li>{{article.titre}} de {{article.auteur}} ; remarques de l'auteur : {{article.remarques}}</li>    
-    {% endfor %}
+
+{% for article in non_publie %}
+<li>{{article.titre}} de {{article.auteur}} ; remarques de l'auteur : {{article.remarques}}</li>
+{% endfor %}
 <br><br> Pour consulter l'article il faut se rendre sur la page admin (le lien est en-dessous)
 <br> Pour publier l'article il suffit de changer l'état en "publié" à la place de "non-publié
 <br><br>
@@ -21,21 +22,25 @@ Voici la liste des commentaires non publiés <br>
 <li>"{{c.com}}" de {{c.auteur}} le {{c.pub_date}} dans {{c.article}}</li>
 {% endfor %}
 
+<!--Lien vers page administrateur de Django-->
 <a class="nav-link" href="http://127.0.0.1:8000/admin/" target="_blank">Cliquez ici pour gérer les articles</a>
+
+<!--Bouton de déconnexion si connecté-->
 <form action="{% url 'logout' %}" method="POST">
     {% csrf_token %}
     <button type="submit">Déconnexion</button>
 </form>
 
 {% else %}
+<!--form de connexion si l'admin n'est pas connecté-->
 <h1 style="text-align: center"> Connexion Administrateur</h1>
 <div class="container">
     <form method="POST">
-         {% csrf_token %}
-         {{form.as_p}}
+        {% csrf_token %}
+        {{form.as_p}}
         <button style="background-color:white; color:blue" class="btn btn-outline-info" type="submit">Connexion</button>
     </form>
-    
+
 </div>
 {% endif %}
 {% endblock %}

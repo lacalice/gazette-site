@@ -17,8 +17,6 @@ class Article(models.Model):
     remarques = models.TextField(max_length=200000,blank=True,null=True)
     etat = models.CharField(max_length=100, default="non-publié")
     
-
-
     def __str__(self):
         return self.titre
 
